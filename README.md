@@ -22,3 +22,6 @@ pip install -r requirements.txt
 ```
 python -m flask run
 ```
+
+## TODO
+- [ ] Re-type Password and required match with Password in the Register menu.
