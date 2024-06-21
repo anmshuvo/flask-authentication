@@ -37,8 +37,8 @@ class User(db.Model, UserMixin):
 
 
 # Create all tables within the Flask application context
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 class RegisterForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(min=1, max=100)],
@@ -47,6 +47,8 @@ class RegisterForm(FlaskForm):
                            render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)],
                              render_kw={"placeholder": "Password"})
+    repassword = PasswordField(validators=[InputRequired(), Length(min=8, max=20)],
+                             render_kw={"placeholder": "Retype Password"})
     submit = SubmitField("Register")
 
     def validate_username(self, username):
@@ -54,6 +56,11 @@ class RegisterForm(FlaskForm):
 
         if existing_username:
             raise ValidationError("This username already exists. Please choose another")
+
+    def validate_password(self, password):
+        if self.password.data != self.repassword.data:
+            raise ValidationError("Passwords do not match")
+
 
 
 class LoginForm(FlaskForm):
@@ -87,7 +94,6 @@ def login_():
 @app.route('/register', methods=['GET', 'POST'])
 def register_():
     form = RegisterForm()
-
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
         new_user = User(name=form.name.data,

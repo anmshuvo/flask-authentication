@@ -12,3 +12,4 @@ htmlcov/
 docs/_build/
 src/.idea
 src/__pycache__/
+.idx

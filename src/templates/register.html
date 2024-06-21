@@ -4,11 +4,20 @@
 
 {% block content %}
     <form method="POST" action="">
-    {{ form.hidden_tag() }}
-    {{ form.name }}
-    {{ form.username }}
-    {{ form.password }}
-    {{ form.submit }}
+        {% for error in form.username.errors %}
+            {{ error }}
+        {% endfor %}
+
+        {% for error in form.password.errors %}
+            {{ error }}
+        {% endfor %}
+    
+        {{ form.hidden_tag() }}
+        {{ form.name }}
+        {{ form.username }}
+        {{ form.password }}
+        {{ form.repassword }}
+        {{ form.submit }}
 
     </form>
     <a href="{{url_for('login_')}}">Login</a>
