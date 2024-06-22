@@ -1,9 +1,13 @@
-/src/instance
+*.db
+/src/instance/
+
 /venv
-.idea/
-.vscode/
 .venv*/
 venv*/
+
+.idea/
+.vscode/
+
 __pycache__/
 dist/
 .coverage*

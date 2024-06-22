@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
@@ -13,6 +14,7 @@ db = SQLAlchemy()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'S3cR3t'
 db.init_app(app)
+Bootstrap(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -37,8 +39,9 @@ class User(db.Model, UserMixin):
 
 
 # Create all tables within the Flask application context
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
+
 
 class RegisterForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(min=1, max=100)],
@@ -60,7 +63,6 @@ class RegisterForm(FlaskForm):
     def validate_password(self, password):
         if self.password.data != self.repassword.data:
             raise ValidationError("Passwords do not match")
-
 
 
 class LoginForm(FlaskForm):

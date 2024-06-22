@@ -25,3 +25,5 @@ python -m flask run
 
 ## TODO
 - [x] Re-type Password and required match with Password in the Register menu.
+- [x] Add Bootstrap 
+- [ ] Implement Flask Blueprint
