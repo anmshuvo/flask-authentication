@@ -1,5 +1,6 @@
 *.db
 /src/instance/
+/src/migrations/
 
 /venv
 .venv*/
